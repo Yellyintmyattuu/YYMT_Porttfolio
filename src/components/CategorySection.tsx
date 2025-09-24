@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { CertificationCard } from './CertificationCard';
-import { getCertificationsByCategory } from '../data/certifications';
+import { getCertificationsByCategory } from '../data/certification.ts';
 
 interface CategorySectionProps {
   category: string;
@@ -65,5 +65,4 @@ export const CategorySection: React.FC<CategorySectionProps> = ({
       </div>
     </div>
   );
-
 };

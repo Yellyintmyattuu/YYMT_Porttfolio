@@ -1,6 +1,6 @@
 import React from 'react';
 import { Trophy, Award, Star, Sparkles } from 'lucide-react';
-import { getCertificationStats } from '../data/certifications';
+import { getCertificationStats } from '../data/certification.ts';
 
 export const Header: React.FC = () => {
   const stats = getCertificationStats();
