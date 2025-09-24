@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import { Header } from '../components/Header';
-import { CategoryOverview } from '../components/CategoryOverview';
-import { CategorySection } from '../components/CategorySection';
-import { categories } from '../data/certifications';
-import { 
-  Shield, 
+import { Header } from '../components/Header.tsx';
+import { CategoryOverview } from '../components/CategoryOverview.tsx';
+import { CategorySection } from '../components/CategorySection.tsx';
+import { categories } from '../data/certification.ts'; // Removed the 's'
+// -----------------------
+import {
+  Shield,
   TrendingUp, 
   Cloud, 
   BarChart3, 
