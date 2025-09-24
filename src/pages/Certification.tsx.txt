@@ -1,0 +1,98 @@
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
+import { Header } from '../components/Header';
+import { CategoryOverview } from '../components/CategoryOverview';
+import { CategorySection } from '../components/CategorySection';
+import { categories } from '../data/certifications';
+import { 
+  Shield, 
+  TrendingUp, 
+  Cloud, 
+  BarChart3, 
+  Brain, 
+  Users, 
+  Code, 
+  Network, 
+  Search, 
+  GraduationCap 
+} from 'lucide-react';
+
+const categoryIcons = {
+  "Cybersecurity & Ethical Hacking": <Shield size={28} />,
+  "Digital Marketing & SEO": <TrendingUp size={28} />,
+  "Cloud Computing & Infrastructure": <Cloud size={28} />,
+  "Data Science & Analytics": <BarChart3 size={28} />,
+  "AI & Machine Learning": <Brain size={28} />,
+  "Project Management & Business": <Users size={28} />,
+  "Software Development & IT Support": <Code size={28} />,
+  "Network & Systems Administration": <Network size={28} />,
+  "Specialized Security & Forensics": <Search size={28} />,
+  "Academic & Professional Development": <GraduationCap size={28} />
+};
+
+export const Certifications: React.FC = () => {
+  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
+
+  const handleCategoryClick = (categoryId: string) => {
+    setExpandedCategory(categoryId);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      {/* Navigation Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <Link 
+            to="/"
+            className="inline-flex items-center gap-2 text-slate-600 hover:text-slate-800 
+                       font-medium transition-colors duration-200 group"
+          >
+            <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform duration-200" />
+            Back to Portfolio
+          </Link>
+        </div>
+      </div>
+
+      <Header />
+      
+      <main className="max-w-7xl mx-auto px-6 py-12">
+        <CategoryOverview onCategoryClick={handleCategoryClick} />
+        
+        {categories.map((category, index) => {
+          const categoryId = category.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+          return (
+            <CategorySection
+              key={category}
+              category={category}
+              icon={categoryIcons[category as keyof typeof categoryIcons]}
+              isInitiallyExpanded={expandedCategory === categoryId || (index === 0 && !expandedCategory)}
+            />
+          );
+        })}
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-slate-800 text-white py-12">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <div className="mb-6">
+            <h3 className="text-2xl font-bold text-amber-400 mb-2">
+              Professional Certification Showcase
+            </h3>
+            <p className="text-gray-300 max-w-2xl mx-auto">
+              This comprehensive collection represents years of dedicated learning 
+              and professional development across multiple technology domains.
+            </p>
+          </div>
+          
+          <div className="border-t border-gray-700 pt-6">
+            <p className="text-gray-400">
+              © 2024-2025 • All certifications are verified and authentic • 
+              Click "Validate Certificate" to verify credentials
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+};
