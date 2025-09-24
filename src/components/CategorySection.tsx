@@ -65,4 +65,5 @@ export const CategorySection: React.FC<CategorySectionProps> = ({
       </div>
     </div>
   );
+
 };
