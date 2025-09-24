@@ -1,0 +1,13 @@
+# Netlify configuration file
+
+[build]
+  # This should match the command in your Netlify UI
+  command = "npm run build"
+  # This should match the publish directory in your Netlify UI
+  publish = "dist"
+
+[[redirects]]
+  # This rule handles all routing for your single-page app
+  from = "/*"
+  to = "/index.html"
+  status = 200
