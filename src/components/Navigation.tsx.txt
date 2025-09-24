@@ -1,0 +1,77 @@
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Home, Award, User, Menu, X } from 'lucide-react';
+import { useState } from 'react';
+
+export const Navigation: React.FC = () => {
+  const location = useLocation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const isActive = (path: string) => location.pathname === path;
+
+  const navItems = [
+    { path: '/', label: 'Portfolio', icon: <Home size={20} /> },
+    { path: '/certifications', label: 'Certifications', icon: <Award size={20} /> }
+  ];
+
+  return (
+    <>
+      {/* Desktop Navigation */}
+      <nav className="hidden md:block fixed top-6 left-1/2 transform -translate-x-1/2 z-50">
+        <div className="bg-black/20 backdrop-blur-md border border-yellow-500/30 rounded-full px-6 py-3 shadow-lg">
+          <div className="flex items-center gap-6">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`
+                  flex items-center gap-2 px-4 py-2 rounded-full font-medium transition-all duration-300
+                  ${isActive(item.path)
+                    ? 'bg-gradient-to-r from-yellow-500 to-amber-500 text-black shadow-md'
+                    : 'text-white hover:bg-yellow-500/20'
+                  }
+                `}
+              >
+                {item.icon}
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile Navigation */}
+      <nav className="md:hidden fixed top-4 right-4 z-50">
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="bg-black/20 backdrop-blur-md border border-yellow-500/30 rounded-full p-3 text-white shadow-lg"
+        >
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+
+        {isMenuOpen && (
+          <div className="absolute top-16 right-0 bg-black/95 backdrop-blur-md border border-yellow-500/30 
+                          rounded-xl shadow-xl overflow-hidden min-w-[200px]">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                onClick={() => setIsMenuOpen(false)}
+                className={`
+                  flex items-center gap-3 px-6 py-4 font-medium transition-all duration-300
+                  ${isActive(item.path)
+                    ? 'bg-gradient-to-r from-yellow-500 to-amber-500 text-black border-r-4 border-yellow-600'
+                    : 'text-white hover:bg-yellow-500/20'
+                  }
+                `}
+              >
+                {item.icon}
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        )}
+      </nav>
+    </>
+  );
+};
